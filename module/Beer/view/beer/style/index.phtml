@@ -1,0 +1,46 @@
+<?php
+
+$title = 'All Beer Styles';
+$this->headTitle($title);
+?>
+<div style="width:100%;">
+    <div class="col-md-5" style="display:inline-block;">
+<h1><?= $this->escapeHtml($title) ?></h1>
+</div>
+
+    <div class="col-md-7 float-right" style="display:inline-block;vertical-align: middle;margin-top: 15px;">
+    <a href="<?= $this->url('manage/style', ['action' => 'add']) ?>">Add new beer style</a>
+</div>
+</div>
+
+<table class="table">
+<tr>
+    <th>Name</th>
+    <th>&nbsp;Action</th>
+</tr>
+<?php if (empty($styles) || count($styles) < 1) { ?>
+<tr>
+    <td colspan="2">No style.</td>
+</tr>
+<?php } else { ?>
+<?php foreach ($styles as $style) : ?>
+    <tr>
+        <td><?= $this->escapeHtml($style->name) ?></td>
+        <td>
+            <a href="<?= $this->url('manage/style', ['action' => 'edit', 'id' => $style->id]) ?>">Edit</a>
+            <a href="<?= $this->url('manage/style', ['action' => 'delete', 'id' => $style->id]) ?>">Delete</a>
+        </td>
+    </tr>
+<?php endforeach; ?>
+<?php }  ?>
+</table>
+<?= $this->paginationControl(
+    // The paginator object:
+    $this->styles,
+    // The scrolling style:
+    'sliding',
+    // The partial to use to render the control:
+    'partial/paginator',
+    // The route to link to when a user clicks a control link:
+    ['route' => 'manage/style']
+) ?>

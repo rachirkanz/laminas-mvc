@@ -1,0 +1,32 @@
+<?php
+
+$title = 'Edit beer category';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title) ?></h1>
+<?php
+$category = $form->get('name');
+$category->setAttribute('class', 'form-control');
+$category->setAttribute('placeholder', 'Category name');
+
+$submit = $form->get('submit');
+$submit->setAttribute('class', 'btn btn-primary');
+
+$form->setAttribute('action', $this->url('category', [
+    'action' => 'edit',
+    'id'     => $id,
+]));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+?>
+<div class="form-group">
+    <?= $this->formLabel($category) ?>
+    <?= $this->formElement($category) ?>
+    <?= $this->formElementErrors()->render($category, ['class' => 'help-block']) ?>
+</div>
+
+<?php
+echo $this->formSubmit($submit);
+echo $this->formHidden($form->get('id'));
+echo $this->form()->closeTag();

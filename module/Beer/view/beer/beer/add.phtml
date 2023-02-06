@@ -1,0 +1,131 @@
+<?php
+$title = 'Add new beer';
+$this->headTitle($title);
+?>
+<div class="clearfix"></div>
+<div style="width:100%;">
+<h1><?= $this->escapeHtml($title) ?></h1>
+</div>
+<div style="width:100%;">
+<?php
+// This provides a default CSS class and placeholder text for the title element:
+$beer = $form->get('name');
+$beer->setAttribute('class', 'form-control');
+$beer->setAttribute('placeholder', 'Beer name');
+
+$brewery_id = $form->get('brewery_id');
+$brewery_id->setAttribute('class', 'form-control');
+$brewery_id->setAttribute('placeholder', 'Brewery');
+
+$cat_id = $form->get('cat_id');
+$cat_id->setAttribute('class', 'form-control');
+$cat_id->setAttribute('placeholder', 'Category');
+
+$style_id = $form->get('style_id');
+$style_id->setAttribute('class', 'form-control');
+$style_id->setAttribute('placeholder', 'Style');
+
+$abv = $form->get('abv');
+$abv->setAttribute('class', 'form-control');
+$abv->setAttribute('placeholder', 'ABV');
+
+$ibu = $form->get('ibu');
+$ibu->setAttribute('class', 'form-control');
+$ibu->setAttribute('placeholder', 'IBU');
+
+$srm = $form->get('srm');
+$srm->setAttribute('class', 'form-control');
+$srm->setAttribute('placeholder', 'SRM');
+
+$upc = $form->get('upc');
+$upc->setAttribute('class', 'form-control');
+$upc->setAttribute('placeholder', 'UPC');
+
+$photo = $form->get('filepath');
+$photo->setAttribute('class', 'form-control');
+$photo->setAttribute('placeholder', 'Photo');
+
+$descript = $form->get('descript');
+$descript->setAttribute('class', 'form-control');
+$descript->setAttribute('placeholder', 'description');
+
+// This provides CSS classes for the submit button:
+$submit = $form->get('submit');
+$submit->setAttribute('class', 'btn btn-primary');
+
+$form->setAttribute('action', $this->url('manage/beer', ['action' => 'add']));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+?>
+
+<?php // Wrap the elements in divs marked as form groups, and render the
+      // label, element, and errors separately within ?>
+<div class="form-group">
+    <?= $this->formLabel($beer) ?>
+    <?= $this->formElement($beer) ?>
+    <?= $this->formElementErrors()->render($beer, ['class' => 'help-block']) ?>
+</div>
+    
+<div class="form-group">
+    <?= $this->formLabel($cat_id) ?>
+    <?= $this->formElement($cat_id) ?>
+    <?= $this->formElementErrors()->render($cat_id, ['class' => 'help-block']) ?>
+</div>
+    
+<div class="form-group">
+    <?= $this->formLabel($style_id) ?>
+    <?= $this->formElement($style_id) ?>
+    <?= $this->formElementErrors()->render($style_id, ['class' => 'help-block']) ?>
+</div>
+    
+<div class="form-group">
+    <?= $this->formLabel($brewery_id) ?>
+    <?= $this->formElement($brewery_id) ?>
+    <?= $this->formElementErrors()->render($brewery_id, ['class' => 'help-block']) ?>
+</div>
+    
+<div class="form-group">
+    <?= $this->formLabel($abv) ?>
+    <?= $this->formElement($abv) ?>
+    <?= $this->formElementErrors()->render($abv, ['class' => 'help-block']) ?>
+</div>
+    
+<div class="form-group">
+    <?= $this->formLabel($ibu) ?>
+    <?= $this->formElement($ibu) ?>
+    <?= $this->formElementErrors()->render($ibu, ['class' => 'help-block']) ?>
+</div>
+    
+<div class="form-group">
+    <?= $this->formLabel($srm) ?>
+    <?= $this->formElement($srm) ?>
+    <?= $this->formElementErrors()->render($srm, ['class' => 'help-block']) ?>
+</div>
+    
+<div class="form-group">
+    <?= $this->formLabel($upc) ?>
+    <?= $this->formElement($upc) ?>
+    <?= $this->formElementErrors()->render($upc, ['class' => 'help-block']) ?>
+</div>
+    
+<div class="form-group">
+    <?= $this->formLabel($photo) ?>
+    <?= $this->formElement($photo) ?>
+    <?= $this->formElementErrors()->render($photo, ['class' => 'help-block']) ?>
+    <div class="hint">(PNG and JPG formats are allowed)</div>
+</div>
+    
+<div class="form-group">
+    <?= $this->formLabel($descript) ?>
+    <?= $this->formElement($descript) ?>
+    <?= $this->formElementErrors()->render($descript, ['class' => 'help-block']) ?>
+</div>
+    
+<?php
+echo $this->formSubmit($submit);
+echo $this->formHidden($form->get('id'));
+echo $this->formHidden($form->get('beer_csrf'));
+echo $this->form()->closeTag();
+?>
+</div>

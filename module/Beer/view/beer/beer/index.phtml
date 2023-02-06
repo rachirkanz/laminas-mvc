@@ -1,0 +1,52 @@
+<?php
+
+$title = 'All Bears';
+$this->headTitle($title);
+?>
+<div style="width:100%;">
+    <div class="col-md-5" style="display:inline-block;">
+<h1><?= $this->escapeHtml($title) ?></h1>
+</div>
+
+    <div class="col-md-7 float-right" style="display:inline-block;vertical-align: middle;margin-top: 15px;">
+    <a href="<?= $this->url('manage/beer', ['action' => 'add']) ?>">Add new beer</a>
+</div>
+</div>
+
+<table class="table">
+<tr>
+    <th>Name</th>
+    <th>Category</th>
+    <th>Style</th>
+    <th>Brewery</th>
+    <th>&nbsp;Action</th>
+</tr>
+<?php if (empty($beers) || count($beers) < 1) { ?>
+<tr>
+    <td colspan="5">No beers.</td>
+</tr>
+<?php } else { ?>
+<?php foreach ($beers as $beer) : ?>
+    <tr>
+        <td><?= $this->escapeHtml($beer->name) ?></td>
+        <td><?= $this->escapeHtml($beer->category_name) ?></td>
+        <td><?= $this->escapeHtml($beer->style_name) ?></td>
+        <td><?= $this->escapeHtml($beer->brewery_name) ?></td>
+        <td>
+            <a href="<?= $this->url('manage/beer', ['action' => 'edit', 'id' => $beer->id]) ?>">Edit</a>
+            <a href="<?= $this->url('manage/beer', ['action' => 'delete', 'id' => $beer->id]) ?>">Delete</a>
+        </td>
+    </tr>
+<?php endforeach; ?>
+<?php }  ?>
+</table>
+<?= $this->paginationControl(
+    // The paginator object:
+    $this->beers,
+    // The scrolling style:
+    'sliding',
+    // The partial to use to render the control:
+    'partial/paginator',
+    // The route to link to when a user clicks a control link:
+    ['route' => 'manage/beer']
+) ?>
